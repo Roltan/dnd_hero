@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Draft\EditDraftRequest;
 use App\Models\Draft;
+use App\Repositories\DraftRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,5 +17,15 @@ class DraftController extends Controller
         ])->id;
 
         return response(['status' => true, 'id' => $id]);
+    }
+
+    public function edit(EditDraftRequest $request): Response
+    {
+        $draft = DraftRepository::getById($request->id, $this->user()['id']);
+        $data = $request->validated();
+        unset($data['id']);
+        $draft->update($data);
+
+        return response(['status' => true]);
     }
 }

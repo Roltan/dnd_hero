@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/draft')->group(function () {
     Route::post('/new', [DraftController::class, 'new'])->middleware('auth.check');
+    Route::post('/edit', [DraftController::class, 'edit'])->middleware('auth.check');
 });
