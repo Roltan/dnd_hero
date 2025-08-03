@@ -23,14 +23,14 @@ class EditDraftRequest extends FormRequest
     {
         return [
             'id' => ['required', 'numeric', 'min:1'],
-            'hero_name' => ['nullable', 'filled', 'string'],
+            'hero_name' => ['nullable', 'string'],
             'lvl' => ['nullable', 'numeric', 'min:1', 'max:20'],
             'exp' => ['nullable', 'numeric', 'min:0', 'max:355000'],
-            'klass' => ['nullable', 'filled', 'string'],
+            'klass' => ['nullable', 'string'],
             'sub_klass' => ['nullable', 'string'],
-            'race' => ['nullable', 'filled', 'string'],
+            'race' => ['nullable', 'string'],
             'sub_race' => ['nullable', 'string'],
-            'background' => ['nullable', 'filled', 'string'],
+            'background' => ['nullable', 'string'],
         ];
     }
 }
