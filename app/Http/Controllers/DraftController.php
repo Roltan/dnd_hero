@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Draft\EditDraftRequest;
+use App\Http\Resources\Draft\DraftResource;
+use App\Http\Resources\Draft\ManyDraftsResource;
 use App\Models\Draft;
 use App\Repositories\DraftRepository;
 use Illuminate\Http\Request;
@@ -25,6 +27,30 @@ class DraftController extends Controller
         $data = $request->validated();
         unset($data['id']);
         $draft->update($data);
+
+        return response(['status' => true]);
+    }
+
+    public function getList(): Response
+    {
+        $drafts = DraftRepository::getByUser($this->user()['id']);
+        $drafts = ManyDraftsResource::collection($drafts);
+
+        return response(['status' => true, 'drafts' => $drafts]);
+    }
+
+    public function get(int $draft): Response
+    {
+        $draft = DraftRepository::getById($draft, $this->user()['id']);
+        $draft = new DraftResource($draft);
+
+        return response(['status' => true, 'draft' => $draft]);
+    }
+
+    public function delete(int $draft): Response
+    {
+        $draft = DraftRepository::getById($draft, $this->user()['id']);
+        $draft->delete();
 
         return response(['status' => true]);
     }
