@@ -16,6 +16,7 @@ class ManyDraftsResource extends JsonResource
     {
         return [
             'href' => '/create/hero/' . $this->id,
+            'id' => $this->id,
             'title' => $this->name
                 ? 'Продолжить ' . $this->name . ' от ' . $this->created_at->format('d.m.Y H:i')
                 : 'Продолжить персонажа от ' . $this->created_at->format('d.m.Y H:i')
